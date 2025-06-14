@@ -1,6 +1,6 @@
 // src/features/auth/authSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
+import { UserModel } from '../../models/UserModel';
 // Giả lập API login
 export const login = createAsyncThunk(
   'auth/login',
@@ -23,22 +23,25 @@ export const login = createAsyncThunk(
     }
   }
 );
+interface AuthState {
+  user: null | UserModel,
+  token: null | string,
+  isAuthenticated: boolean,
+  loading: boolean,
+  error: any,
+}
+
+const initialState: AuthState = {
+  user: null,
+  token: null,
+  isAuthenticated: false,
+  loading: false,
+  error: null,
+};
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState: {
-    user: null,
-    token: null,
-    isAuthenticated: false,
-    loading: false,
-    error: null,
-  } as {
-    user: null | { id: number; name: string; role: string };
-    token: string | null;
-    isAuthenticated: boolean;
-    loading: boolean;
-    error: string | null;
-  },
+  initialState,
   reducers: {
     logout(state) {
       state.user = null;
