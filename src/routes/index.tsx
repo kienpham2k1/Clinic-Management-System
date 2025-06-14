@@ -26,6 +26,14 @@ let router = createBrowserRouter([
             }
         ]
     },
+    // {
+    //     path: "logout",
+    //       action(){
+    //         // do some logout action 
+    //         console.log("logout call")
+    //         return redirect("/")
+    //     }
+    // }
 ]);
 
 export default function App() {
