@@ -1,9 +1,9 @@
 import {
-    createBrowserRouter,
-    RouterProvider
+    createBrowserRouter
 } from "react-router-dom";
 import Home from "../pages/Home";
 import About from "../pages/About";
+import App from "../layouts/Layout";
 
 
 
@@ -12,12 +12,11 @@ let router = createBrowserRouter([
         id: "root",
         path: "/",
         loader: () => (console.log("loader path: /1")),
-
         children: [
             {
                 index: true,
                 loader: () => (console.log("loader path: /2")),
-                element: <Home />
+                element: <App/>
             },
             {
                 path: "about",
@@ -26,16 +25,5 @@ let router = createBrowserRouter([
             }
         ]
     },
-    // {
-    //     path: "logout",
-    //       action(){
-    //         // do some logout action 
-    //         console.log("logout call")
-    //         return redirect("/")
-    //     }
-    // }
 ]);
-
-export default function App() {
-    return <RouterProvider router={router} fallbackElement={<p>Loading...</p>} />;
-}
+export default router;
