@@ -1,6 +1,6 @@
 // src/features/auth/authSlice.ts
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { UserModel } from '../../models/UserModel';
+import { UserProfile } from '../../types/user';
 // Giả lập API login
 export const login = createAsyncThunk(
   'auth/login',
@@ -11,20 +11,20 @@ export const login = createAsyncThunk(
         setTimeout(
           () =>
             resolve({
-              user: { id: 1, name: 'Dr. Kien 2', role: 'doctor m' },
+              user: { id: 1, firstName: 'Dr. Kien 2', role: 'doctor m' },
               token: 'fake-jwt-token-123',
             }),
           1000
         )
       );
-      return response as { user: any; token: string };
+      return response as { user: UserProfile; token: string };
     } catch (error) {
       return thunkAPI.rejectWithValue('Login failed');
     }
   }
 );
 interface AuthState {
-  user: null | UserModel,
+  user: null | UserProfile,
   token: null | string,
   isAuthenticated: boolean,
   loading: boolean,
