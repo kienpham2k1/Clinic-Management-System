@@ -3,9 +3,7 @@ import {
 } from "react-router-dom";
 import Home from "../pages/Home";
 import About from "../pages/About";
-import App from "../layouts/Layout";
-
-
+import Default from "../layouts/Default";
 
 let router = createBrowserRouter([
     {
@@ -16,7 +14,7 @@ let router = createBrowserRouter([
             {
                 index: true,
                 loader: () => (console.log("loader path: /2")),
-                element: <App/>
+                element: <Default />
             },
             {
                 path: "about",
