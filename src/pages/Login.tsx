@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { logout } from '../features/auth/authSlice';
 import { AppDispatch, RootState } from '../store';
-import { fetchProfile, loading } from '../features/profile/profileSlice';
-import { login } from '../services/LoginService';
+import { loading } from '../features/profile/profileSlice';
+import { login } from '../services/auth/LoginService';
+import { fetchProfile } from '../services/user/UserService';
 
 export default function LoginForm() {
     const dispatch = useDispatch<AppDispatch>();
@@ -18,14 +19,7 @@ export default function LoginForm() {
     const handleLogin = () => {
         dispatch(login({ username, password }));
         dispatch((loading()))
-        dispatch(fetchProfile({
-            id: "1",
-            profileImage: null,
-            firstName: "Kien",
-            lastName: "Pham",
-            email: "kienpt32@mail.com",
-            phoneNumber: "123",
-        }))
+        dispatch(fetchProfile())
     };
 
     const handleLogout = () => {
@@ -58,7 +52,7 @@ export default function LoginForm() {
                     <button onClick={handleLogin}  >
                         {profile.loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
                     </button>
-                    {/* {auth.error && <p style={{ color: 'red' }}>{auth.error}</p>} */}
+                    {auth.error && <p style={{ color: 'red' }}>{auth.error}</p>}
                 </div>
             )}
         </div>

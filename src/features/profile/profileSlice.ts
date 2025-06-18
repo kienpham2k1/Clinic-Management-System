@@ -1,9 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { UserProfile } from '../../types/user';
+import { fetchProfile } from '../../services/user/UserService';
 
 export interface ProfileState {
     loading: boolean;
-    userProfile: UserProfile;
+    userProfile: UserProfile | null;
 }
 
 const initialState: ProfileState = {
@@ -31,11 +32,24 @@ export const profileSlice = createSlice({
         updateProfile: (state, action) => {
             state.userProfile = action.payload
         },
-        removeProfile: (state, action) => {
-            state.userProfile = action.payload
+        removeProfile: (state) => {
+            state.userProfile = null;
         },
     },
+    extraReducers: (builder) => {
+        builder
+            .addCase(fetchProfile.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(fetchProfile.fulfilled, (state, action: PayloadAction<UserProfile>) => {
+                state.loading = false;
+                state.userProfile = action.payload
+            })
+            .addCase(fetchProfile.rejected, (state, action) => {
+                state.loading = false;
+            });
+    }
 });
 
-export const { loading, fetchProfile, updateProfile, removeProfile } = profileSlice.actions;
+export const { loading, updateProfile, removeProfile } = profileSlice.actions;
 export default profileSlice.reducer;

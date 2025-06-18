@@ -1,34 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LoginResponse } from '../../types/login';
 
-import { login } from '../../services/LoginService'
+import { login } from '../../services/auth/LoginService'
 
-// export const login = createAsyncThunk(
-//     'auth/login',
-//     async (
-//         credentials: { username: string; password: string },
-//         thunkAPI
-//     ) => {
-//         try {
-//             const response = await new Promise((resolve) =>
-//                 setTimeout(
-//                     () =>
-//                         resolve({
-//                             accessToken: "fake_token",
-//                             refreshToken: "fakeToken"
-//                         }),
-//                     1000
-//                 )
-//             );
-//             return response as {
-//                 accessToken: string,
-//                 refreshToken: string
-//             };
-//         } catch (error) {
-//             return thunkAPI.rejectWithValue('Login failed');
-//         }
-//     }
-// )
 export interface AuthState {
   accessToken: string | null;
   isAuthenticated: boolean;
@@ -47,10 +21,6 @@ export const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // login: (state, action: PayloadAction<LoginResponse>) => {
-    //   state.isAuthenticated = true;
-    //   state.accessToken = action.payload.accessToken;
-    // },
     logout: (state) => {
       state.isAuthenticated = false;
       state.accessToken = "";
