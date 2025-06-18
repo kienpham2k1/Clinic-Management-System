@@ -4,6 +4,7 @@ import {
 import Home from "../pages/Home";
 import About from "../pages/About";
 import Default from "../layouts/Default";
+import LoginForm from "../pages/Login";
 
 let router = createBrowserRouter([
     {
@@ -14,7 +15,7 @@ let router = createBrowserRouter([
             {
                 index: true,
                 loader: () => (console.log("loader path: /2")),
-                element: <Default />
+                element: <LoginForm />
             },
             {
                 path: "about",

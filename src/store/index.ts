@@ -1,7 +1,8 @@
 // src/app/store.ts
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import authReducer from '../features/auth/authSlice';
-import themeReducer from '../features/theme/themeSlice';
+import profileReducer from '../features/profile/profileSlice';
+import themeReducer from '../features/setting/settingSlice';
 
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -14,6 +15,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     auth: authReducer,
+    profile: profileReducer,
     theme: themeReducer,
 });
 
