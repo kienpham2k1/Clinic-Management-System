@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { logout } from '../features/auth/authSlice';
 import { AppDispatch, RootState } from '../store';
-import { loading } from '../features/profile/profileSlice';
 import { login } from '../services/auth/LoginService';
 import { fetchProfile } from '../services/user/UserService';
 

@@ -3,24 +3,28 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useDispatch, useSelector } from 'react-redux';
 import * as SettingSelector from '../store/selector'
-import { AppDispatch } from '../store';
+import { AppDispatch, RootState } from '../store';
+import { theme_scheme_direction } from '../features/setting/settingSlice';
 function Setting() {
     const [show, setShow] = useState(false);
     const themeSchemeDirection = useSelector(
         SettingSelector.theme_scheme_direction
     );
     const dispatch = useDispatch<AppDispatch>();
+    const setting = useSelector((state: RootState) => state.setting);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const change = () => {
+        dispatch(theme_scheme_direction())
+    }
     return (
         <>
             <Button variant="primary" onClick={handleShow} className="me-2">
                 {'Open Setting'}
             </Button>
-            {/* <Button variant="primary" onClick={() => { dispatch. }} className="me-2">
+            <Button variant="primary" onClick={() => { dispatch(theme_scheme_direction()) }} className="me-2">
                 {'Change to rtl'}
-            </Button> */}
+            </Button>
             <Offcanvas
                 show={show}
                 onHide={handleClose}
