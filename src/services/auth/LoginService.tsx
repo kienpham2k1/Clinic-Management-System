@@ -1,5 +1,6 @@
 // LoginService.ts
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { LoginResponse } from "../../types/login";
 
 const login = createAsyncThunk(
     'auth/login',
@@ -18,10 +19,7 @@ const login = createAsyncThunk(
                     1000
                 )
             );
-            return response as {
-                accessToken: string,
-                refreshToken: string
-            };
+            return response as LoginResponse;
         } catch (error) {
             return thunkAPI.rejectWithValue('Login failed');
         }

@@ -18,20 +18,22 @@ export default function LoginForm() {
 
     const handleLogin = () => {
         dispatch(login({ username, password }));
-        dispatch((loading()))
         dispatch(fetchProfile())
     };
 
     const handleLogout = () => {
         dispatch(logout());
-        dispatch((loading()))
+        // dispatch(loading())
     };
 
     return (
         <div>
+            <div> {"profile loading " + JSON.stringify(profile.loading).toString()}</div>
+
+            <div>  {"auth loading " + JSON.stringify(auth.loading).toString()}</div>
             {auth.isAuthenticated ? (
                 <div>
-                    {JSON.stringify(profile.loading).toString()}
+
                     <h3>Xin chào, {profile.userProfile?.firstName}</h3>
                     <button onClick={handleLogout}>Đăng xuất</button>
                 </div>
@@ -50,7 +52,7 @@ export default function LoginForm() {
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <button onClick={handleLogin}  >
-                        {profile.loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
+                        {auth.loading ? 'Đang đăng nhập...' : 'Đăng nhập'}
                     </button>
                     {auth.error && <p style={{ color: 'red' }}>{auth.error}</p>}
                 </div>
