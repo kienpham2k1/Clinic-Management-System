@@ -1,22 +1,22 @@
 // src/app/store.ts
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import authReducer from '../features/auth/authSlice';
-import profileReducer from '../features/profile/profileSlice';
-import themeReducer from '../features/setting/settingSlice';
-
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
- 
+
+import authReducer from '../features/auth/authSlice';
+import profileReducer from '../features/profile/profileSlice';
+import settingReducer from '../features/setting/settingSlice';
+
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['auth'],
+    whitelist: ['auth', 'profile, setting']
 };
 
 const rootReducer = combineReducers({
     auth: authReducer,
     profile: profileReducer,
-    theme: themeReducer,
+    setting: settingReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

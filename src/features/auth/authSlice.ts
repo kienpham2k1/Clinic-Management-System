@@ -14,7 +14,7 @@ const initialState: AuthState = {
   accessToken: null,
   isAuthenticated: false,
   error: null,
-  loading: true
+  loading: false
 };
 
 export const authSlice = createSlice({

@@ -8,7 +8,7 @@ export interface ProfileState {
 }
 
 const initialState: ProfileState = {
-    loading: true,
+    loading: false,
     userProfile: {
         id: null,
         profileImage: null,
