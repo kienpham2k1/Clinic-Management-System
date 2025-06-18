@@ -2,9 +2,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useState } from 'react';
-import { login, logout } from '../features/auth/authSlice';
+import { logout } from '../features/auth/authSlice';
 import { AppDispatch, RootState } from '../store';
 import { fetchProfile, loading } from '../features/profile/profileSlice';
+import { login } from '../services/LoginService';
 
 export default function LoginForm() {
     const dispatch = useDispatch<AppDispatch>();
@@ -15,10 +16,7 @@ export default function LoginForm() {
     const [password, setPassword] = useState('');
 
     const handleLogin = () => {
-        dispatch(login({
-            accessToken: "fake_token",
-            refreshToken: "fakeToken"
-        }));
+        dispatch(login({ username, password }));
         dispatch((loading()))
         dispatch(fetchProfile({
             id: "1",
@@ -32,6 +30,7 @@ export default function LoginForm() {
 
     const handleLogout = () => {
         dispatch(logout());
+        dispatch((loading()))
     };
 
     return (
