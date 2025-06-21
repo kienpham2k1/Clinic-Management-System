@@ -26,9 +26,9 @@ export const profileSlice = createSlice({
         loading: (state) => {
             state.loading = !state.loading
         },
-        fetchProfile: (state, action) => {
-            state.userProfile = action.payload
-        },
+        // fetchProfile: (state, action) => {
+        //     state.userProfile = action.payload
+        // },
         updateProfile: (state, action) => {
             state.userProfile = action.payload
         },
@@ -43,7 +43,14 @@ export const profileSlice = createSlice({
             })
             .addCase(fetchProfile.fulfilled, (state, action: PayloadAction<UserProfile>) => {
                 state.loading = false;
-                state.userProfile = action.payload
+                state.userProfile = {
+                    id: action.payload.id,
+                    profileImage: action.payload.profileImage,
+                    firstName: action.payload.firstName,
+                    lastName: action.payload.lastName,
+                    email: action.payload.email,
+                    phoneNumber: action.payload.phoneNumber,
+                }
             })
             .addCase(fetchProfile.rejected, (state, action) => {
                 state.loading = false;

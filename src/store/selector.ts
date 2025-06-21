@@ -1,7 +1,7 @@
 export const saveLocal = (state: any): String => state.setting.saveLocal;
 export const app_name = (state: any): String => state.setting.setting.app_name.value;
 export const theme_scheme = (state: any): String => state.setting.setting.theme_scheme.value;
-export const theme_scheme_direction = (state: any): String => state.setting.setting.theme_scheme_direction.value;
+export const themeSchemeDirection = (state: any): String => state.setting.setting.themeSchemeDirection.enableRTL;
 export const theme_style_appearance = (state: any): String[] => state.setting.setting.theme_style_appearance.value;
 export const theme_color = (state: any): String => state.setting.setting.theme_color;
 export const theme_transition = (state: any): String => state.setting.setting.theme_transition.value;

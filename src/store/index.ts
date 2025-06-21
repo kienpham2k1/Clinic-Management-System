@@ -10,7 +10,7 @@ import settingReducer from '../features/setting/settingSlice';
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['auth', 'profile, setting']
+    whitelist: ['auth', 'profile', 'setting']
 };
 
 const rootReducer = combineReducers({

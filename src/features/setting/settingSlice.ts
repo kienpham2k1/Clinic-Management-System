@@ -1,17 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-const initialState = { setting: { theme_scheme_direction: { value: false } } }
+const initialState = { setting: { themeSchemeDirection: { enableRTL: false } } }
 const settingSlice = createSlice({
     name: 'setting',
     initialState,
     reducers: {
-        theme_scheme_direction: (state) => {
+        themeSchemeDirection: (state) => {
             // if (typeof action.payload !== typeof undefined) {
-                state.setting.theme_scheme_direction.value = !state.setting.theme_scheme_direction.value;
+            state.setting.themeSchemeDirection.enableRTL = !state.setting.themeSchemeDirection.enableRTL;
             // }
         },
 
     },
 });
 
-export const { theme_scheme_direction } = settingSlice.actions;
+export const { themeSchemeDirection } = settingSlice.actions;
 export default settingSlice.reducer;
