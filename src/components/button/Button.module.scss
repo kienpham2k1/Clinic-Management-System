@@ -1,0 +1,44 @@
+@import '../../assets/scss/config/variables.scss';
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    border-radius: 0.375rem;
+
+    &:disabled {
+        background-color: #cccccc;
+        color: #666666;
+        cursor: not-allowed;
+        opacity: 0.7;
+    }
+
+    &.primary {
+        border: 1px solid $pr-primary;
+
+        &.solid {
+            background-color: $pr-primary;
+            color: white;
+            font-weight: bold;
+
+            &:hover:enabled {
+                background-color: $pr-secondary;
+                border: 1px solid $pr-secondary;
+            }
+
+            &.outline {
+                background-color: transparent;
+                color: #007bff;
+                border: 1px solid #007bff;
+
+                &:hover:enabled {
+                    background-color: #007bff;
+                    color: white;
+                }
+            }
+        }
+    }
+}
