@@ -5,40 +5,162 @@
     align-items: center;
     justify-content: center;
     transition: 0.3s;
-    padding: 6px 10px;
-    font-size: 0.75rem;
-    border-radius: 0.375rem;
+
+    transition: all 0.3s ease;
+    font-weight: bold;
+    cursor: pointer;
+    border: 1px solid transparent;
+    gap: 0.5rem;
+
+    &:active {
+        transform: scale(0.96);
+        box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+    }
+
+    .icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &.active {
+        border-color: #0A1B39;
+    }
 
     &:disabled {
-        background-color: #cccccc;
+        background-color: transparent;
         color: #666666;
         cursor: not-allowed;
         opacity: 0.7;
+        border-color: #cccccc;
     }
 
-    &.primary {
-        border: 1px solid $pr-primary;
+    &.dashed {
+        background-color: transparent;
+        color: inherit;
+        border: 1px dashed currentColor;
+    }
 
-        &.solid {
-            background-color: $pr-primary;
-            color: white;
-            font-weight: bold;
+    &.filled {
+        background-color: currentColor;
+        color: #fff;
+        border: 1px solid currentColor;
+    }
 
-            &:hover:enabled {
-                background-color: $pr-secondary;
-                border: 1px solid $pr-secondary;
+    &.text {
+        background-color: transparent;
+        border: none;
+        color: inherit;
+    }
+
+    &.link {
+        background: none;
+        border: none;
+        color: #007bff;
+        padding: 0;
+    }
+
+    /* Shape */
+    &.default {
+        border-radius: 0.3rem;
+    }
+
+    &.round {
+        border-radius: 50rem;
+    }
+
+    &.circle {
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        aspect-ratio: 1 / 1;
+        justify-content: center;
+    }
+
+    /* Size */
+    &.large {
+        font-size: 1rem;
+        padding: 6px 10px;
+    }
+
+    &.middle {
+        font-size: 0.75rem;
+        padding: 6px 10px;
+    }
+
+    &.small {
+        font-size: 0.5rem;
+        padding: 6px 10px;
+    }
+}
+
+@mixin button-style($name, $bg, $border-color, $hover-bg, $hover-border-color, $text-color,
+    $outlined-bg, $outlined-border-color, $outlined-hover-bg, $outlined-hover-border-color, $outlined-text-color, $outlined-hover-text-color ) {
+    .#{$name} {
+        background-color: $bg;
+        color: $text-color;
+        border: 1px solid $border-color;
+
+        &:hover:not(:disabled) {
+            background-color: $hover-bg;
+            border-color: $hover-border-color;
+        }
+
+        &.active {
+            background-color: $hover-bg;
+            color: $text-color;
+            border-color: $hover-border-color;
+        }
+
+        &.outlined {
+            background-color: transparent;
+            color: $outlined-text-color;
+            border: 1px solid $outlined-hover-bg;
+
+            &:hover:not(:disabled) {
+                background-color: $outlined-hover-bg;
+                color: $outlined-hover-text-color;
+                border-color: $outlined-hover-border-color;
             }
 
-            &.outline {
-                background-color: transparent;
-                color: #007bff;
-                border: 1px solid #007bff;
-
-                &:hover:enabled {
-                    background-color: #007bff;
-                    color: white;
-                }
+            &.active {
+                background-color: $hover-bg;
+                color: $text-color;
+                border-color: $hover-border-color;
             }
         }
     }
+}
+
+
+
+
+
+
+
+$button-colors: (
+    primary: ($pr-primary, $pr-primary, $pr-secondary, $pr-secondary, #fff, $pr-primary, $pr-primary, $pr-secondary, $pr-secondary, $pr-primary, #fff),
+    secondary: ($pr-secondary, $pr-secondary, $pr-primary, $pr-primary, #fff, $pr-secondary, $pr-secondary, $pr-primary, $pr-primary, $pr-secondary, #fff),
+    success: ($pr-success, $pr-success, #157347, #157347, #fff, $pr-success, $pr-success, #157347, #157347, $pr-success, #fff),
+    info: ($pr-info, $pr-info, rgb(42.535, 115.84, 214.485), rgb(42.535, 115.84, 214.485), #fff, $pr-info, $pr-info, rgb(42.535, 115.84, 214.485), rgb(42.535, 115.84, 214.485), $pr-info, #fff),
+    warning: ($pr-warning, $pr-warning, rgb(209.05, 171.125, 54.575), rgb(209.05, 171.125, 54.575), #fff, $pr-warning, $pr-warning, rgb(209.05, 171.125, 54.575), rgb(209.05, 171.125, 54.575), $pr-warning, #fff),
+    danger: ($pr_danger, $pr_danger, rgb(216.295, 27.15, 27.15), rgb(216.295, 27.15, 27.15), #fff, $pr_danger, $pr_danger, rgb(216.295, 27.15, 27.15), rgb(216.295, 27.15, 27.15), $pr_danger, #fff),
+    light: (#F5F6F8, #F5F6F8, rgb(226.625, 227.55, 229.4), rgb(226.625, 227.55, 229.4), #0A1B39, #F5F6F8, #F5F6F8, rgb(226.625, 227.55, 229.4), rgb(226.625, 227.55, 229.4), #0A1B39, #0A1B39),
+    dark: ($pr_dark, $pr_dark, rgb(46.75, 61.2, 86.7), rgb(46.75, 61.2, 86.7), #fff, $pr_dark, $pr_dark, rgb(46.75, 61.2, 86.7), rgb(46.75, 61.2, 86.7), $pr_dark, #fff),
+);
+
+@each $name, $colors in $button-colors {
+    $bg: nth($colors, 1);
+    $border-color: nth($colors , 2);
+    $hover-bg: nth($colors, 3);
+    $hover-border-color: nth($colors, 4);
+    $text-color: nth($colors, 5);
+    $outlined-bg: nth($colors, 6);
+    $outlined-border-color: nth($colors, 7);
+    $outlined-hover-bg: nth($colors, 8);
+    $outlined-hover-border-color: nth($colors, 9);
+    $outlined-text-color: nth($colors, 10);
+    $outlined-hover-text-color : nth($colors, 11);
+    @include button-style($name, $bg, $border-color, $hover-bg, $hover-border-color, $text-color,
+        $outlined-bg, $outlined-border-color, $outlined-hover-bg, $outlined-hover-border-color, $outlined-text-color, $outlined-hover-text-color );
 }

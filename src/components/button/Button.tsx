@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, ReactNode, useEffect, useState } from 'react';
 import styles from './Button.module.scss';
 
 export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'type'> {
@@ -8,24 +8,51 @@ export interface ButtonProps extends Omit<React.ButtonHTMLAttributes<HTMLButtonE
     size?: 'large' | 'middle' | 'small'
     htmlType?: 'button' | 'submit' | 'reset'
     value?: string
-    disable?: boolean
+    disabled?: boolean
+    icon?: ReactNode
+    iconPosition?: 'start' | 'end'
+    toggled?: boolean
+    isToggle?: boolean
+    onToggleChange?: (state: boolean) => void
 }
 
 const Button: React.FC<ButtonProps> = ({
     variant = 'solid',
-    type = 'primary',
+    type = '',
     shape = 'default',
     size = 'middle',
     htmlType = 'button',
     value = '',
     disabled = false,
+    icon,
+    iconPosition = 'start',
+    toggled,
+    isToggle = false,
+    onToggleChange,
     ...props
 }) => {
+    const [internalToggle, setInternalToggle] = useState(false);
+    const toggleState = toggled !== undefined ? toggled : internalToggle;
+
+    useEffect(() => {
+        if (toggled !== undefined) setInternalToggle(toggled);
+    }, [toggled]);
+
+    const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if (isToggle) {
+            const newState = !toggleState;
+            if (toggled === undefined) setInternalToggle(newState);
+            onToggleChange?.(newState);
+        }
+        props.onClick?.(e);
+    };
     const classes = [
         styles.button,
-        styles[type],
         styles[variant],
+        styles[type],
+        styles[shape],
         styles[size],
+        toggleState ? styles['active'] : '',
         props.className
     ].filter(Boolean).join(' ');
 
@@ -35,8 +62,11 @@ const Button: React.FC<ButtonProps> = ({
                 className={classes}
                 type={htmlType}
                 disabled={disabled}
+                onClick={handleClick}
                 {...props}>
-                {value}
+                {icon && iconPosition === 'start' && <span className={styles.icon}>{icon}</span>}
+                {value && <span>{value}</span>}
+                {icon && iconPosition === 'end' && <span className={styles.icon}>{icon}</span>}
             </button>
         </Fragment>
     );
